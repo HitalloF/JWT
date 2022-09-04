@@ -29,7 +29,7 @@ public class UsuarioController {
 
     @PostMapping("/salvar")
     public ResponseEntity<UsuarioModel> salvar(@RequestBody UsuarioModel usuario) {
-        usuario.setPassword(encoder.encode(usuario.getPassword()));
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
         return ResponseEntity.ok(repository.save(usuario));
     }
 
@@ -43,7 +43,7 @@ public class UsuarioController {
         }
 
         UsuarioModel usuario = optUsuario.get();
-        boolean valid = encoder.matches(password, usuario.getPassword());
+        boolean valid = encoder.matches(password, usuario.getSenha());
 
         HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
         return ResponseEntity.status(status).body(valid);
